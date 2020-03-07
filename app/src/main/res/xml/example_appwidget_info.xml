@@ -6,6 +6,7 @@
     android:minHeight="40dp"
     android:updatePeriodMillis="10000"
     android:initialLayout="@layout/example_appwidget"
+    android:previewImage="@drawable/ic_ps_round"
     android:configure="uk.com.egecius.widgetdemo.ExampleAppWidgetProvider"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen">
