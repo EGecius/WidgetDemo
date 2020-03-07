@@ -1,8 +1,10 @@
 package uk.com.egecius.widgetdemo
 
+import android.app.Activity
 import android.appwidget.AppWidgetManager
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -20,12 +22,33 @@ class AppWidgetConfigure : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_widget_congifure)
 
-        val appWidgetId = intent?.extras?.getInt(
+        configureWidget()
+    }
+
+    private fun configureWidget() {
+        // todo Perform your configuration at this step, based on what the user has selected
+    }
+
+
+    /** todo call this once configuration is finished */
+    private fun finishConfiguration() {
+        val appWidgetManager: AppWidgetManager = AppWidgetManager.getInstance(this)
+
+        RemoteViews(packageName, R.layout.example_appwidget).also { views ->
+            appWidgetManager.updateAppWidget(getWidgetId(), views)
+        }
+
+        val resultValue = Intent().apply {
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, getWidgetId())
+        }
+        setResult(Activity.RESULT_OK, resultValue)
+        finish()
+    }
+
+    private fun getWidgetId(): Int {
+        return intent?.extras?.getInt(
             AppWidgetManager.EXTRA_APPWIDGET_ID,
             AppWidgetManager.INVALID_APPWIDGET_ID
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
-
-        Log.v("Eg:AppWidgetConfigure:27", "onCreate() appWidgetId: $appWidgetId")
-
     }
 }
