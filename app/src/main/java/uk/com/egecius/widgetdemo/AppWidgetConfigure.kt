@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_app_widget_congifure.*
 
 /**
  * Automatically launched by the App Widget host and allows the user to configure available settings for
@@ -22,16 +23,17 @@ class AppWidgetConfigure : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_widget_congifure)
 
-        configureWidget()
+        setClickListener()
     }
 
-    private fun configureWidget() {
-        // todo Perform your configuration at this step, based on what the user has selected
+    private fun setClickListener() {
+        button_confirmation.setOnClickListener {
+            val text = edit_text_configuration.text.toString()
+            finishConfiguration(text)
+        }
     }
 
-
-    /** todo call this once configuration is finished */
-    private fun finishConfiguration() {
+    private fun finishConfiguration(configurationText: String) {
         val appWidgetManager: AppWidgetManager = AppWidgetManager.getInstance(this)
 
         RemoteViews(packageName, R.layout.example_appwidget).also { views ->
@@ -40,6 +42,7 @@ class AppWidgetConfigure : AppCompatActivity() {
 
         val resultValue = Intent().apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, getWidgetId())
+            putExtra(KEY_CONFIGURATION_TEXT, configurationText)
         }
         setResult(Activity.RESULT_OK, resultValue)
         finish()
