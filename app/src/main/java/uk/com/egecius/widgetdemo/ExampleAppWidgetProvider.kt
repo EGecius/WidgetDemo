@@ -22,6 +22,14 @@ class ExampleAppWidgetProvider : AppWidgetProvider() {
         Log.v("Eg:ExampleAppWidgetProvider:19", "onUpdate() ")
 
         setOnClickListeners(appWidgetIds, context, appWidgetManager)
+        readFromSharePreferences(context)
+    }
+
+    private fun readFromSharePreferences(context: Context) {
+        val string = context.getSharedPreferences(DEFAULT_PREFS, Context.MODE_PRIVATE)
+            .getString(KEY_WIDGET_TEXT, null)
+
+        Log.v("Eg:ExampleAppWidgetProvider:32", "readFromSharePreferences() string: $string")
     }
 
     private fun setOnClickListeners(
