@@ -2,6 +2,7 @@ package uk.com.egecius.widgetdemo
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
@@ -19,6 +20,10 @@ import kotlinx.android.synthetic.main.activity_widget_congifuration.*
  * */
 class WidgetConfigurationActivity : AppCompatActivity() {
 
+    private val sharePrefsEditor by lazy {
+        getSharedPreferences(DEFAULT_PREFS, Context.MODE_PRIVATE).edit()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_widget_congifuration)
@@ -29,11 +34,18 @@ class WidgetConfigurationActivity : AppCompatActivity() {
     private fun setClickListener() {
         button_confirmation.setOnClickListener {
             val text = edit_text_configuration.text.toString()
-            finishConfiguration(text)
+            saveConfigurationResult(text)
+            finishConfiguration()
         }
     }
 
-    private fun finishConfiguration(configurationText: String) {
+    private fun saveConfigurationResult(text: String) {
+        sharePrefsEditor
+            .putString(KEY_WIDGET_TEXT, text)
+            .apply()
+    }
+
+    private fun finishConfiguration() {
         val appWidgetManager: AppWidgetManager = AppWidgetManager.getInstance(this)
 
         RemoteViews(packageName, R.layout.example_appwidget).also { views ->
@@ -42,7 +54,6 @@ class WidgetConfigurationActivity : AppCompatActivity() {
 
         val resultValue = Intent().apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, getWidgetId())
-            putExtra(KEY_CONFIGURATION_TEXT, configurationText)
         }
         setResult(Activity.RESULT_OK, resultValue)
         finish()
