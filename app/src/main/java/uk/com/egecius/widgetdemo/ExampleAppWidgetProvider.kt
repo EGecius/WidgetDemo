@@ -72,4 +72,14 @@ class ExampleAppWidgetProvider : AppWidgetProvider() {
     ) {
         Log.v("Eg:ExampleAppWidgetProvider:29", "onAppWidgetOptionsChanged()")
     }
+
+    override fun onEnabled(context: Context?) {
+        super.onEnabled(context)
+        Log.v("Eg:ExampleAppWidgetProvider:78", "onEnabled() - widget created to add to the home screen, while there are none added yet")
+    }
+
+    override fun onDisabled(context: Context?) {
+        super.onDisabled(context)
+        Log.v("Eg:ExampleAppWidgetProvider:83", "onDisabled() - last widget removed from the home screen")
+    }
 }
