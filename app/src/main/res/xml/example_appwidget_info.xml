@@ -8,5 +8,6 @@
     android:initialLayout="@layout/example_appwidget"
     android:previewImage="@drawable/ic_ps_round"
     android:resizeMode="horizontal|vertical"
+    android:configure="uk.com.egecius.widgetdemo.AppWidgetConfigure"
     android:widgetCategory="home_screen">
 </appwidget-provider>
