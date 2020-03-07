@@ -22,10 +22,10 @@ class MyAppWidgetProvider : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         Log.i("Eg:MyAppWidgetProvider:22", "onUpdate() ")
 
-        setOnClickListeners(appWidgetIds, context, appWidgetManager)
+        updateAllRemoteViews(appWidgetIds, context, appWidgetManager)
     }
 
-    private fun setOnClickListeners(
+    private fun updateAllRemoteViews(
         appWidgetIds: IntArray,
         context: Context,
         appWidgetManager: AppWidgetManager
