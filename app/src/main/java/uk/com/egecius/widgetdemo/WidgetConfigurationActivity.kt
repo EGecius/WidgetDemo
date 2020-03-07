@@ -5,7 +5,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.RemoteViews
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_widget_congifuration.*
 
@@ -35,22 +35,21 @@ class WidgetConfigurationActivity : AppCompatActivity() {
         button_confirmation.setOnClickListener {
             val text = edit_text_configuration.text.toString()
             saveConfigurationResult(text)
-            finishConfiguration()
+            finishConfiguration(text)
         }
     }
 
     private fun saveConfigurationResult(text: String) {
+
+        Log.v("Eg:WidgetConfigurationActivity:44", "saveConfigurationResult() text: $text")
+
         sharePrefsEditor
             .putString(KEY_WIDGET_TEXT, text)
             .apply()
     }
 
-    private fun finishConfiguration() {
-        val appWidgetManager: AppWidgetManager = AppWidgetManager.getInstance(this)
-
-        RemoteViews(packageName, R.layout.example_appwidget).also { views ->
-            appWidgetManager.updateAppWidget(getWidgetId(), views)
-        }
+    private fun finishConfiguration(text: String) {
+        MyAppWidgetProvider.updateAppWidget(this, getWidgetId(), text)
 
         val resultValue = Intent().apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, getWidgetId())
