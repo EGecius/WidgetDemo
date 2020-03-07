@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Describes the metadata for an App Widget, such as the App Widget's layout, update frequency,
+ and the AppWidgetProvider class -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="40dp"
     android:minHeight="40dp"
