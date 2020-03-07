@@ -22,14 +22,6 @@ class ExampleAppWidgetProvider : AppWidgetProvider() {
         Log.v("Eg:ExampleAppWidgetProvider:19", "onUpdate() ")
 
         setOnClickListeners(appWidgetIds, context, appWidgetManager)
-        readFromSharePreferences(context)
-    }
-
-    private fun readFromSharePreferences(context: Context) {
-        val string = context.getSharedPreferences(DEFAULT_PREFS, Context.MODE_PRIVATE)
-            .getString(KEY_WIDGET_TEXT, null)
-
-        Log.v("Eg:ExampleAppWidgetProvider:32", "readFromSharePreferences() string: $string")
     }
 
     private fun setOnClickListeners(
@@ -49,9 +41,16 @@ class ExampleAppWidgetProvider : AppWidgetProvider() {
         return RemoteViews(
             context.packageName, R.layout.example_appwidget
         ).apply {
+            val text = readFromSharePreferences(context)
+            setTextViewText(R.id.text_content, text)
             val pendingIntent: PendingIntent = createIntentForExampleActivity(context)
             setOnClickPendingIntent(R.id.example_button, pendingIntent)
         }
+    }
+
+    private fun readFromSharePreferences(context: Context): String? {
+        return context.getSharedPreferences(DEFAULT_PREFS, Context.MODE_PRIVATE)
+            .getString(KEY_WIDGET_TEXT, null)
     }
 
     private fun createIntentForExampleActivity(context: Context): PendingIntent {
