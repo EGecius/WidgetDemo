@@ -19,7 +19,7 @@ class MyAppWidgetProvider : AppWidgetProvider() {
      * Called to update the App Widget at intervals defined by the updatePeriodMillis attribute in the AppWidgetProviderInfo
      * */
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        Log.v("Eg:ExampleAppWidgetProvider:19", "onUpdate() ")
+        Log.v("Eg:MyAppWidgetProvider:22", "onUpdate() ")
 
         setOnClickListeners(appWidgetIds, context, appWidgetManager)
     }
@@ -70,16 +70,16 @@ class MyAppWidgetProvider : AppWidgetProvider() {
         appWidgetId: Int,
         newOptions: Bundle?
     ) {
-        Log.v("Eg:ExampleAppWidgetProvider:29", "onAppWidgetOptionsChanged()")
+        Log.v("Eg:MyAppWidgetProvider:29", "onAppWidgetOptionsChanged()")
     }
 
     override fun onEnabled(context: Context?) {
         super.onEnabled(context)
-        Log.v("Eg:ExampleAppWidgetProvider:78", "onEnabled() - widget created to add to the home screen, while there are none added yet")
+        Log.v("Eg:MyAppWidgetProvider:78", "onEnabled() - widget created to add to the home screen, while there are none added yet")
     }
 
     override fun onDisabled(context: Context?) {
         super.onDisabled(context)
-        Log.v("Eg:ExampleAppWidgetProvider:83", "onDisabled() - last widget removed from the home screen")
+        Log.v("Eg:MyAppWidgetProvider:83", "onDisabled() - last widget removed from the home screen")
     }
 }
