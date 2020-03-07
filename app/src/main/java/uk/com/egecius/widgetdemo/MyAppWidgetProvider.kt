@@ -13,7 +13,7 @@ import android.widget.RemoteViews
  * Defines the basic methods that allow you to programmatically interface with the App Widget, based on broadcast events.
  * Through it, you will receive broadcasts when the App Widget is updated, enabled, disabled and deleted
  * */
-class ExampleAppWidgetProvider : AppWidgetProvider() {
+class MyAppWidgetProvider : AppWidgetProvider() {
 
     /**
      * Called to update the App Widget at intervals defined by the updatePeriodMillis attribute in the AppWidgetProviderInfo
