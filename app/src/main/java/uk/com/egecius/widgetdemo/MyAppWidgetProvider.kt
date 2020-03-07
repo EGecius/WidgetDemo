@@ -54,7 +54,7 @@ class MyAppWidgetProvider : AppWidgetProvider() {
     }
 
     private fun createIntentForExampleActivity(context: Context): PendingIntent {
-        return Intent(context, ExampleActivity::class.java)
+        return Intent(context, LaunchedFromWidgetActivity::class.java)
             .let {
                 PendingIntent.getActivity(context, 0, it, 0)
             }
