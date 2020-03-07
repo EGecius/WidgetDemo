@@ -21,45 +21,23 @@ class MyAppWidgetProvider : AppWidgetProvider() {
      * */
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         Log.i("Eg:MyAppWidgetProvider:22", "onUpdate() ")
-
-        updateAllRemoteViews(appWidgetIds, context, appWidgetManager)
+        updateAllRemoteViews(appWidgetIds, context)
     }
 
     private fun updateAllRemoteViews(
         appWidgetIds: IntArray,
-        context: Context,
-        appWidgetManager: AppWidgetManager
+        context: Context
     ) {
         // Perform this loop procedure for each App Widget that belongs to this provider
         appWidgetIds.forEach { appWidgetId ->
-            val remoteViews: RemoteViews = createLayoutWithListenersSet(context)
-            // Tell the AppWidgetManager to perform an update on the current app widget
-            appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
+            val text = readTextFromSharePreferences(context)
+            updateWidget(context, appWidgetId, text)
         }
     }
 
-    private fun createLayoutWithListenersSet(context: Context): RemoteViews {
-        return RemoteViews(
-            context.packageName, R.layout.example_appwidget
-        ).apply {
-            val text = readFromSharePreferences(context)
-            Log.d("Eg:MyAppWidgetProvider:45", "createLayoutWithListenersSet() text: $text")
-            setTextViewText(R.id.text_content, text)
-            val pendingIntent: PendingIntent = createIntentForExampleActivity(context)
-            setOnClickPendingIntent(R.id.example_button, pendingIntent)
-        }
-    }
-
-    private fun readFromSharePreferences(context: Context): String? {
+    private fun readTextFromSharePreferences(context: Context): String? {
         return context.getSharedPreferences(DEFAULT_PREFS, Context.MODE_PRIVATE)
             .getString(KEY_WIDGET_TEXT, null)
-    }
-
-    private fun createIntentForExampleActivity(context: Context): PendingIntent {
-        return Intent(context, LaunchedFromWidgetActivity::class.java)
-            .let {
-                PendingIntent.getActivity(context, 0, it, 0)
-            }
     }
 
     /**
@@ -88,18 +66,29 @@ class MyAppWidgetProvider : AppWidgetProvider() {
 
     companion object {
 
-        fun updateAppWidget(context: Context, appWidgetId: Int, text: String) {
+        fun updateWidget(context: Context, appWidgetId: Int, text: String?) {
             val appWidgetManager: AppWidgetManager = AppWidgetManager.getInstance(context)
+            val remoteViews: RemoteViews = createLayoutWithListenersSet(context, text)
+            // Tell the AppWidgetManager to perform an update on the current app widget
+            appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
+        }
 
-            // Getting the string this way allows the string to be localized.  The format
-            // string is filled in using java.util.Formatter-style format strings.
-            // Construct the RemoteViews object.  It takes the package name (in our case, it's our
-            // package, but it needs this because on the other side it's the widget host inflating
-            // the layout from our package).
-            val views = RemoteViews(context.packageName, R.layout.example_appwidget)
-            views.setTextViewText(R.id.text_content, text)
-            // Tell the widget manager
-            appWidgetManager.updateAppWidget(appWidgetId, views)
+        private fun createLayoutWithListenersSet(context: Context, text: String?): RemoteViews {
+            return RemoteViews(
+                context.packageName, R.layout.example_appwidget
+            ).apply {
+                Log.d("Eg:MyAppWidgetProvider:45", "createLayoutWithListenersSet() text: $text")
+                setTextViewText(R.id.text_content, text)
+                val pendingIntent: PendingIntent = createIntentForExampleActivity(context)
+                setOnClickPendingIntent(R.id.example_button, pendingIntent)
+            }
+        }
+
+        private fun createIntentForExampleActivity(context: Context): PendingIntent {
+            return Intent(context, LaunchedFromWidgetActivity::class.java)
+                .let {
+                    PendingIntent.getActivity(context, 0, it, 0)
+                }
         }
     }
 }

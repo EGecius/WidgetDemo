@@ -49,7 +49,7 @@ class WidgetConfigurationActivity : AppCompatActivity() {
     }
 
     private fun finishConfiguration(text: String) {
-        MyAppWidgetProvider.updateAppWidget(this, getWidgetId(), text)
+        MyAppWidgetProvider.updateWidget(this, getWidgetId(), text)
 
         val resultValue = Intent().apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, getWidgetId())
