@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_app_widget_congifure.*
+import kotlinx.android.synthetic.main.activity_widget_congifuration.*
 
 /**
  * Automatically launched by the App Widget host and allows the user to configure available settings for
@@ -17,11 +17,11 @@ import kotlinx.android.synthetic.main.activity_app_widget_congifure.*
  * ID passed by the Intent that launched the Activity (saved in the Intent extras as EXTRA_APPWIDGET_ID
  *
  * */
-class AppWidgetConfigure : AppCompatActivity() {
+class WidgetConfigurationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_app_widget_congifure)
+        setContentView(R.layout.activity_widget_congifuration)
 
         setClickListener()
     }

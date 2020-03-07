@@ -21,7 +21,7 @@
 
         <activity android:name=".ExampleActivity" />
 
-        <activity android:name=".AppWidgetConfigure">
+        <activity android:name=".WidgetConfigurationActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
